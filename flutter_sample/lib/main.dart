@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:async';
 import 'dart:convert'; // Json parser
 
@@ -27,9 +28,12 @@ class MCState extends State<MerryChristmasPage> {
   @override
   Widget build(BuildContext context) {
     String apiKey = DotEnv().env['API_KEY'];
+    String platformName = "Some Platform";
+    if (Platform.isAndroid) platformName = "Android";
+    if (Platform.isIOS) platformName = "iOS";
 
     return new Scaffold(
-      appBar: new AppBar(title: new Text("🎅Merry Christmas🎄"),),
+      appBar: new AppBar(title: new Text("🎅Flutter on $platformName🎄"),),
       body: new ListView.builder(
           itemBuilder: (BuildContext context, int index) {
               if (index == this.models.length) {
