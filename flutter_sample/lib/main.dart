@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert'; // Json parser
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -27,8 +26,6 @@ class MCState extends State<MerryChristmasPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-
     String apiKey = DotEnv().env['API_KEY'];
 
     return new Scaffold(
@@ -51,10 +48,7 @@ class MCState extends State<MerryChristmasPage> {
               }
 
               var model = models[index];
-              return _sizedContainer(width,
-              new CachedNetworkImage(
-                imageUrl: model.imageUrl,
-              ),
+              return new Container(child: new Image(image: new CachedNetworkImageProvider(model.imageUrl),),
               );
           })
     );
@@ -77,7 +71,7 @@ class MCState extends State<MerryChristmasPage> {
     }
     isLoading = true;
     try {
-      var url = "https://pixabay.com/api/?key=${apiKey}&q=christmas&page=${page}";
+      var url = "https://pixabay.com/api/?key=${apiKey}&image_type=photo&q=christmas&page=${page}";
       var resp = await http.get(url);
       var hits = json.decode(resp.body)['hits'];
       setState(() {
@@ -87,7 +81,7 @@ class MCState extends State<MerryChristmasPage> {
             if (hit is Map) {
               Model model = new Model();
               model.id = hit['id'] as int;
-              model.imageUrl = hit['previewURL'] as String;
+              model.imageUrl = hit['webformatURL'] as String;
               models.add(model);
             }
           });
