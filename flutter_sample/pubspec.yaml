@@ -1,0 +1,24 @@
+name: flutter_sample
+description: Merry Christmas
+
+version: 0.0.1
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cached_network_image: ^0.5.1
+  flutter_dotenv: ^2.0.1
+
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
